@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 
-const auth =  function(req,res,next){
-    const requestToken = req.headers["x-api-key"]
-    if(!requestToken){
-        return res.status(400).send({status:false, message:`Token must be presetn`})
+const authentication =  function(req,res,next){
+    const token = req.headers["x-api-key"]
+    if(!token){
+        return res.status(400).send({status:false, message:`Token must be present`})
     }
 
-    jwt.verify(requestToken,  'thisI@sSecreteKey', function(err, decoded){
+    jwt.verify(token, 'thisI@sSecreteKey', function(err, decoded){
         if(err){
-            return res.status(401).send({status:false, message:err.message})
+            return res.status(401).send({status:false, message:`enter valid token`})
         }else{
             req.decodedToken = decoded
             next()
@@ -16,4 +16,5 @@ const auth =  function(req,res,next){
     });
 };
 
-module.exports = { auth }
+
+module.exports = { authentication }
