@@ -40,53 +40,48 @@ const blogs = async function(req,res){
     }
 }
 
-const getBlogs = async function(req,res){
-    try{
-        const {authorId, category, tags, subcategory} = req.query
-        
-        const filter = { isDeleted: false, isPublished: true }
+const getBlogs = async function (req, res) {
+    try {
+        const { authorId, category, tags, subcategory } = req.query;
+        let filter = { isDeleted: false, isPublished: true };
 
-        if(!authorId && !category && !tags && !subcategory){
-            let allBlogsData = await blogModel.find(filter)
-            res.status(200).send({status:true, data: allBlogsData})
-            return
+        if (!authorId && !category && !tags && !subcategory) {
+            const allBlog = await blogModel.find(filter);
+            return res.status(200).send({ status: true, data: allBlog });
         }
 
-        if(authorId){
-            filter.authorId = authorId
+        if (authorId) {
+            filter.authorId = authorId;
         }
-
-        if(req.query.authorId){
-            if(!validator.validObjectId(req.query.authorId)){
-                return res.status(400).send({status:false, message:`${authorId} not valid authorId`})
-            }else{
-                req.query.authorId = authorId
+        if (req.query.authorId) {
+            if (!validator.validObjectId(req.query.authorId)) {
+                return res
+                    .status(400)
+                    .send({ status: false, msg: "please enter a valid author id" });
+            } else {
+                req.query.authorId = authorId;
             }
         }
-        
-        if(category){
-            filter.category = category
+        if (category) {
+            filter.category = category;
         }
-        if(tags){
-            filter.tags = tags
+        if (tags) {
+            filter.tags = tags;
         }
-        if(subcategory){
-            filter.subcategory = subcategory
-        }
-
-        const blogsData = await blogModel.find({filter})
-
-        if(blogsData.length == 0){
-            return res.status(404).send({status:false, message:`Blogs Not Found`})
+        if (subcategory) {
+            filter.subcategory = subcategory;
         }
 
-        res.status(200).send({status:true, data: blogsData})
-        return
-
-    }catch(err){
-        res.status(500).send({status:false, message:err.message})
+        const saveData = await blogModel.find(filter);
+        if (saveData.length == 0) {
+            return res.status(404).send({ status: false, msg: "Blog is not available" });
+        } else {
+            return res.status(200).send({ status: true, data: saveData });
+        }
+    } catch (err) {
+        return res.status(500).send({ status: false, msg: err.message });
     }
-}
+};
 
 
 
