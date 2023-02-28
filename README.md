@@ -1,5 +1,7 @@
 # Project_MiniBlog
-# blog-Project# Lithium
+Role : Backend Part of Blogging sites
+This project is all about blogging sites where the user can create blogs and edit , update and delete blogs which is created by the user.
+
 
 Repository for backend cohort - Lithium
 
