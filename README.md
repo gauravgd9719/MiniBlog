@@ -1,7 +1,7 @@
 # Project_MiniBlog
-Role : Backend Part of Blogging sites
-This project is all about blogging sites where the user can create blogs and edit , update and delete blogs which is created by the user.
-Used Javascript, Nodejs, Express, MongoDB, JWT. 
+Role : Backend Part of Blogging sites 
+About : This project is all about blogging sites where the user can create blogs and edit , update and delete blogs which is created by the user. 
+Technology Used : Javascript, Nodejs, Express, MongoDB, JWT, Authetication. 
 
 
 Repository for backend cohort - Lithium
